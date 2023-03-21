@@ -1,0 +1,32 @@
+---
+title: "lab 12"
+author: "Aishat Olatunji"
+date: "2022-11-14"
+output: word_document
+---
+
+```{r}
+
+data<-read.csv( "/Users/aishatolatunji/Downloads/PotentialClients.csv"
+)
+head(data)
+plot(data)
+#lets compute and plot wss (weighted sum statistic) for k=2 to k=15
+k.max = 15
+
+wss = sapply(1:k.max, function(k) {kmeans(data, k, nstart = 50, iter.max = 15)$tot.withins})
+wss
+
+
+#lets plot the WSS
+plot(1:k.max, wss, type="b", pch=19, frame = FALSE , xlab = "Number of clusters K", ylab = "Total within clusters sum of squares")
+
+
+# lets say the best number of clusters = 5
+clusters.km <- kmeans(data,5)
+
+#lets plot the color-coded clusters.km
+plot(data, col=clusters.km$cluster)
+
+```
+
